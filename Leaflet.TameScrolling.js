@@ -108,26 +108,3 @@ L.Map.TameScrolling = L.Handler.extend({
 });
 
 L.Map.addInitHook('addHandler', 'tameScrolling', L.Map.TameScrolling);
-
-/*
- * for proper implementation of the 'sleepNote'
-var sleepNote = L.Control.extend({
-  onAdd: function(map){
-    var container = L.DomUtil.create('p', 'none'),
-        noteString = 'Click ' + (map.options.hoverToWake?'':'or Hover ') + 'to Wake';
-    container.appendChild(document.createTextNode( noteString )); 
-    container.class = '';
-    container.style.margin = 'auto auto';
-    container.style.width = '250px';
-    container.style.textAlign = 'center';
-    //var container = '<p>Click ' + (map.options.hoverToWake?'':'or Hover ') + 'to Wake</p>';
-    console.log(container);
-    return container;
-  }
-})
-
-L.Map.addInitHook(function () {
-  this.sleepNote = new sleepNote();
-  this.addControl(this.sleepNote);
-});
-*/
