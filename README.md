@@ -8,19 +8,19 @@ Just include `Leaflet.TameScrolling.js` right after leaflet!
 
 ```
 {
-  // true by default, false if you want a wild map
+  // false if you want an unruly map
   tameScrolling: true, 
 
-  // time it takes for the map to fall asleep once out mouseout
+  // time(ms) until map sleeps on mouseout
   sleepTime: 750,      
 
   // time(ms) until map wakes on mouseover
   wakeTime: 750,       
 
-  // defines whether or not the user is prompted oh how to wake map
+  // defines whether the user is prompted on how to wake map
   sleepNote: true,     
 
-  // should only hovering wake the map?
+  // should hovering wake the map?
   hoverToWake: true    
 }
 ```
