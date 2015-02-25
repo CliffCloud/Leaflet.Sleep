@@ -3,13 +3,13 @@
 <head>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <meta charset=utf-8 />
-  <title>Leaflet.TameScrolling</title>
+  <title>Leaflet.Sleep</title>
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <!--  <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />-->
   <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' rel='stylesheet' />
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
   <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-  <script src='Leaflet.TameScrolling.js'></script>
+  <script src='Leaflet.Sleep.js'></script>
   <style>
   .mapContainer {
     width: 100%;
@@ -36,10 +36,10 @@
       <a href="http://www.cliffcloud.com"><img class="topImage" src="http://www.cliffcloud.com/assets/images/cliffcloud_logo_small.png" /></a>
     </span>
     <span class="crop-box">
-      <a href="https://github.com/CliffCloud/Leaflet.TameScrolling"><img class="topImage" src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" /></a>
+      <a href="https://github.com/CliffCloud/Leaflet.Sleep"><img class="topImage" src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" /></a>
     </span>
     <h1>
-      Leaflet.TameScrolling 
+      Leaflet.Sleep
       <small>remove&nbsp;scroll-sucking&nbsp;maps&nbsp;on&nbsp;content&nbsp;intensive&nbsp;pages</small>
     </h1>
     <p>I know what's gonna happen, take me to <a href="#summary">the end.</a></p>
@@ -73,29 +73,29 @@
       <div class="text-center">
         <h2 id="summary">wait, I didn't get trapped...</h2>
         <p>All becasue</p>
-        <code>&lt;script src="Leaflet.TameScrolling.js"&gt;&lt;/script&gt;</code>
+        <code>&lt;script src="Leaflet.Sleep.js"&gt;&lt;/script&gt;</code>
         <p>was on this page</p>
       </div>
       <div class="row">
         <div class="col-md-offset-3 col-md-6">
           <h3>new L.map Options<small> and the defaults</small></h3>
-           
+
           <pre>
 {
   // true by default, false if you want a wild map
-  tameScrolling: true, 
+  sleep: true,
 
-  // time it takes for the map to fall asleep once out mouseout
-  sleepTime: 750,      
+  // time(ms) for the map to fall asleep upon mouseout
+  sleepTime: 750,
 
   // time(ms) until map wakes on mouseover
-  wakeTime: 750,       
+  wakeTime: 750,
 
   // defines whether or not the user is prompted oh how to wake map
-  sleepNote: true,     
+  sleepNote: true,
 
-  // should only hovering wake the map?
-  hoverToWake: true    
+  // should hovering wake the map? (clicking always will)
+  hoverToWake: true
 }
           </pre>
         </div>
@@ -104,8 +104,8 @@
   </div>
 <script>
   var osm = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      map1 = L.map('map1', {tameScrolling: false}).setView([37.8, -96], 4).addLayer(L.tileLayer(osm)),
-      map2 = L.map('map2', {tameScrolling: false}).setView([37.8, -96], 4).addLayer(L.tileLayer(osm)),
+      map1 = L.map('map1', {sleep: false}).setView([37.8, -96], 4).addLayer(L.tileLayer(osm)),
+      map2 = L.map('map2', {sleep: false}).setView([37.8, -96], 4).addLayer(L.tileLayer(osm)),
       map3 = L.map('map3').setView([37.8, -96], 4).addLayer(L.tileLayer(osm));
 </script>
 </body>
