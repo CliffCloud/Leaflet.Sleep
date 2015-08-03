@@ -21,6 +21,9 @@ Just include `Leaflet.Sleep.js` right after leaflet!
   sleepNote: true,
 
   // should hovering wake the map?
-  hoverToWake: true
+  hoverToWake: true,
+
+  // specify a custom message to notify users how to wake
+  wakeMessage: ('Click ' + (hoverToWake?' or Hover ' : '') + 'to Wake')
 }
 ```
