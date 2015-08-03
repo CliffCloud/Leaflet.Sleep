@@ -14,8 +14,8 @@ L.Map.Sleep = L.Handler.extend({
     this._exitTimeout = null;
 
 
-    var noteString = 'Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake',
-        style = this.sleepNote.style;
+    var noteString = this._map.options.wakeMessage || ('Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake');
+    var style = this.sleepNote.style;
     if( this._map.options.sleepNote ){
       this.sleepNote.appendChild(document.createTextNode( noteString ));
       style['max-width'] = '150px';
