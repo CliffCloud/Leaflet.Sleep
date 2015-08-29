@@ -1,4 +1,4 @@
-### Let your maps sleep!
+## Leaflet.Sleep
 
 > When scrolling down a page, if you cursor hits a leaflet map, the scroll is
 > stopped in it's tracks and the map starts zooming. This is annoying!
@@ -12,11 +12,15 @@
 > with user-interest it wakes the map and
 > when ignored the map won't interfere.
 
-[demo](https://cliffcloud.github.io/Leaflet.Sleep)
+### [demo](https://cliffcloud.github.io/Leaflet.Sleep)
+
+### Use
 
 Just include `Leaflet.Sleep.js` right after leaflet!
 
-#### New Options availabe for `L.map` (and defaults)
+#### Config
+
+These are the new options available for `L.map` and their defaults.
 
     {
         // false if you want an unruly map
