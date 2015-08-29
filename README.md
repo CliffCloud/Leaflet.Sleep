@@ -3,9 +3,11 @@
 > When scrolling down a page, if you cursor hits a leaflet map, the scroll is
 > stopped in it's tracks and the map starts zooming. This is annoying!
 >
-> `L.Sleep` removes the dilemma between
-> **A) disabling scrollZoom for the pages sake**
-> and **B) enabling scrollZoom for the map's sake**.
+> `L.Sleep` removes the **dilemma** between
+>
+>   * disabling scrollZoom for the pages sake
+>   * enabling scrollZoom for the map's sake
+>
 > It's an interaction-manager for your map:
 > with user-interest it wakes the map and
 > when ignored the map won't interfere.
