@@ -14,15 +14,22 @@ L.Map.Sleep = L.Handler.extend({
     this._exitTimeout = null;
 
 
-    var noteString = this._map.options.wakeMessage || ('Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake');
+    var mapStyle = this._map.getContainer().style;
+    mapStyle.WebkitTransition += 'opacity .5s';
+    mapStyle.MozTransition += 'opacity .5s';
+
+    var noteString = this._map.options.wakeMessage ||
+                     ('Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake');
     var style = this.sleepNote.style;
     if( this._map.options.sleepNote ){
       this.sleepNote.appendChild(document.createTextNode( noteString ));
-      style['max-width'] = '150px';
+      style.maxWidth = '150px';
+      style.transitionDuration = '.2s';
+      style.zIndex = 5000;
       style.opacity = '.6';
       style.margin = 'auto';
-      style['text-align'] = 'center';
-      style['border-radius'] = '4px';
+      style.textAlign = 'center';
+      style.borderRadius = '4px';
       style.top = '50%';
       style.position = 'relative';
       style.padding = '5px';
