@@ -41,3 +41,5 @@ These are the new options available for `L.map` and their defaults.
         // specify a custom message to notify users how to wake
         wakeMessage: ('Click ' + (hoverToWake?' or Hover ' : '') + 'to Wake')
     }
+
+### MIT Licensed
