@@ -66,7 +66,7 @@ L.Map.Sleep = L.Handler.extend({
   },
 
   _wakePending: function () {
-    this._map.once('click', this._wakeMap, this);
+    this._map.once('mousedown', this._wakeMap, this);
     if (this._map.options.hoverToWake){
       var self = this;
       this._map.once('mouseout', this._sleepMap, this);
@@ -97,7 +97,7 @@ L.Map.Sleep = L.Handler.extend({
   _removeSleepingListeners: function(){
     this._map.options.hoverToWake &&
       this._map.off('mouseover', this._wakePending, this);
-    this._map.off('mousedown click', this._wakeMap, this);
+    this._map.off('mousedown', this._wakeMap, this);
   },
 
   _removeAwakeListeners: function(){
