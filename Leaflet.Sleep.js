@@ -3,7 +3,8 @@ L.Map.mergeOptions({
   sleepTime: 750,
   wakeTime: 750,
   sleepNote: true,
-  hoverToWake: true
+  hoverToWake: true,
+  sleepOpacity:.7
 });
 
 L.Map.Sleep = L.Handler.extend({
@@ -59,7 +60,7 @@ L.Map.Sleep = L.Handler.extend({
   _sleepMap: function () {
     this._stopWaiting();
     this._map.scrollWheelZoom.disable();
-    L.DomUtil.setOpacity( this._map._container, .7);
+    L.DomUtil.setOpacity( this._map._container, this._map.options.sleepOpacity);
     this.sleepNote.style.opacity = .4;
     this._addSleepingListeners();
   },

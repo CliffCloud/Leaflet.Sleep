@@ -95,7 +95,11 @@
   sleepNote: true,
 
   // should hovering wake the map? (clicking always will)
-  hoverToWake: true
+  hoverToWake: true,
+
+  // opacity (between 0 and 1) of inactive map
+  sleepOpacity: .5
+
 }
           </pre>
         </div>
@@ -106,7 +110,20 @@
   var osm = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       map1 = L.map('map1', {sleep: false}).setView([37.8, -96], 4).addLayer(L.tileLayer(osm)),
       map2 = L.map('map2', {sleep: false}).setView([37.8, -96], 4).addLayer(L.tileLayer(osm)),
-      map3 = L.map('map3').setView([37.8, -96], 4).addLayer(L.tileLayer(osm));
+      map3 = L.map('map3', {
+          // true by default, false if you want a wild map
+          sleep: true,
+          // time(ms) for the map to fall asleep upon mouseout
+          sleepTime: 750,
+          // time(ms) until map wakes on mouseover
+          wakeTime: 750,
+          // defines whether or not the user is prompted oh how to wake map
+          sleepNote: true,
+          // should hovering wake the map? (clicking always will)
+          hoverToWake: true,
+          // opacity (between 0 and 1) of inactive map
+          sleepOpacity: .7
+      }).setView([37.8, -96], 4).addLayer(L.tileLayer(osm));
 </script>
 </body>
 

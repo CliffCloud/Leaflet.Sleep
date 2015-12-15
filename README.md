@@ -36,10 +36,13 @@ These are the new options available for `L.map` and their defaults.
         sleepNote: true,
 
         // should hovering wake the map?
-        hoverToWake: true
+        hoverToWake: true,
 
         // specify a custom message to notify users how to wake
-        wakeMessage: ('Click ' + (hoverToWake?' or Hover ' : '') + 'to Wake')
+        wakeMessage: ('Click ' + (hoverToWake?' or Hover ' : '') + 'to Wake'),
+
+        // opacity (between 0 and 1) of inactive map
+        sleepOpacity: .7
     }
 
 ### MIT Licensed
