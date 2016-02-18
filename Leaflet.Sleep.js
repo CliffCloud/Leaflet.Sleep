@@ -24,6 +24,7 @@ L.Map.Sleep = L.Handler.extend({
     var style = this.sleepNote.style;
     if( this._map.options.sleepNote ){
       this.sleepNote.appendChild(document.createTextNode( noteString ));
+      style.pointerEvents = 'none';
       style.maxWidth = '150px';
       style.transitionDuration = '.2s';
       style.zIndex = 5000;
