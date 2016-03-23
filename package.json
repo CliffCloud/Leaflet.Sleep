@@ -1,8 +1,8 @@
 {
-  "name": "Leaflet.sleep",
-  "version": "1.0.0",
-  "description": "When scrolling down a page, if you cursor hits a leaflet map, the scroll is stopped in it's tracks and the map starts zooming. This is annoying!",
+  "name": "leaflet-sleep",
+  "version": "0.1.0",
   "main": "Leaflet.Sleep.js",
+  "description": "Plugin for Leaflet for preventing unwanted scroll capturing",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,10 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/CliffCloud/Leaflet.Sleep.git"
   },
-  "author": "CliffCloud",
+  "author": "rocks.in.the.cloud+leafletsleep@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/CliffCloud/Leaflet.Sleep/issues"
   },
-  "homepage": "http://cliffcloud.github.io/Leaflet.Sleep"
+  "homepage": "http://cliffcloud.github.io/Leaflet.Sleep",
+  "readmeFilename": "README.md"
 }
