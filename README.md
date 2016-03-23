@@ -16,33 +16,68 @@
 
 ### Use
 
-Just include `Leaflet.Sleep.js` right after leaflet!
+* Include `Leaflet.Sleep.js` *right after leaflet*!
+* Specify plugin options *before creating a new map object*:
+```js
+L.Map.mergeOptions({
+    sleep: true,
+    sleepTime: 750,
+    wakeTime: 750,
+    sleepNote: true,
+    hoverToWake: true,
+    sleepOpacity:.7
+});
+```
 
 #### Config
 
-These are the new options available for `L.map` and their defaults.
+##### sleep
 
-    {
-        // false if you want an unruly map
-        sleep: true,
+Type: `boolean`
+Default: `true`
 
-        // time(ms) until map sleeps on mouseout
-        sleepTime: 750,
+Whether you want an unruly map.
 
-        // time(ms) until map wakes on mouseover
-        wakeTime: 750,
+##### sleepTime
 
-        // defines whether the user is prompted on how to wake map
-        sleepNote: true,
+Type: `number`
+Default: `750`
 
-        // should hovering wake the map?
-        hoverToWake: true,
+Time(ms) until map sleeps on `mouseout`.
 
-        // specify a custom message to notify users how to wake
-        wakeMessage: ('Click ' + (hoverToWake?' or Hover ' : '') + 'to Wake'),
+##### wakeTime
 
-        // opacity (between 0 and 1) of inactive map
-        sleepOpacity: .7
-    }
+Type: `number`
+Default: `750`
+
+Time(ms) until map wakes on `mouseover`.
+
+##### sleepNote
+
+Type: `boolean`
+Default: `true`
+
+Whether the user is prompted on how to wake map.
+
+##### hoverToWake
+
+Type: `boolean`
+Default: `true`
+
+Whether hovering should wake the map.
+
+##### wakeMessage
+
+Type: `string`
+Default: `'Click ' + (hoverToWake?' or Hover ' : '') + 'to Wake'`
+
+Specify a custom message to notify users how to wake
+
+##### sleepOpacity
+
+Type: `number`
+Default: `.7`
+
+Opacity (between 0 and 1) of inactive map.
 
 ### MIT Licensed
