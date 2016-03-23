@@ -1,12 +1,9 @@
-L.Map.mergeOptions({
-  sleep: true,
-  sleepTime: 750,
-  wakeTime: 750,
-  sleepNote: true,
-  hoverToWake: true,
-  sleepOpacity:.7
-});
+/*
+ Leaflet.Sleep, a plugin that prevents unwanted scroll capturing; let you map sleep.
+ Copyright (c) 2015 Daniel Montague
 
+ https://github.com/CliffCloud/Leaflet.Sleep
+ */
 L.Map.Sleep = L.Handler.extend({
   addHooks: function () {
     this.sleepNote = L.DomUtil.create('p', 'sleep-note', this._map._container);

@@ -1,0 +1,13 @@
+{
+  "name": "leaflet-sleep",
+  "version": "0.1.0",
+  "description": "Plugin for Leaflet that prevents unwanted scroll capturing",
+  "main": "Leaflet.Sleep.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CliffCloud/Leaflet.Sleep.git"
+  },
+  "author": "Daniel Montague",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
