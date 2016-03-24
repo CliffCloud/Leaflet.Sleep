@@ -1,24 +1,31 @@
-## Leaflet.Sleep
+# Leaflet.Sleep
 
-> When scrolling down a page, if you cursor hits a leaflet map, the scroll is
-> stopped in it's tracks and the map starts zooming. This is annoying!
->
-> `L.Sleep` removes the **dilemma** between
->
->   * disabling scrollZoom for the pages sake
->   * enabling scrollZoom for the map's sake
->
-> It's an interaction-manager for your map:
-> with user-interest it wakes the map and
-> when ignored the map won't interfere.
+When scrolling a page and your cursor crosses a leaflet map, the scroll is
+stopped and the map zooms &mdash; not friendly.
 
-### [demo](https://cliffcloud.github.io/Leaflet.Sleep)
+`L.Sleep` removes the **dilemma** between
 
-### Use
+  * disabling scrollZoom for the pages sake
+  * enabling scrollZoom for the map's sake
 
-Just include `Leaflet.Sleep.js` right after leaflet!
+It's an interaction-manager for your map:
+with user-interest it wakes the map and
+when ignored the map won't interfere.
 
-#### Config
+### [demo/example](https://cliffcloud.github.io/Leaflet.Sleep)
+
+## Use
+
+Either
+[`npm install leaflet-sleep`](https://www.npmjs.com/package/leaflet-sleep)
+or copy/paste the
+[source](https://github.com/CliffCloud/Leaflet.Sleep/blob/master/Leaflet.Sleep.js)
+
+all you need to do is include the plugin and you'll be good to go
+
+    <script src="Leaflet.Sleep.js"></script>
+
+## Config
 
 These are the new options available for `L.map` and their defaults.
 
@@ -45,4 +52,4 @@ These are the new options available for `L.map` and their defaults.
         sleepOpacity: .7
     }
 
-### MIT Licensed
+## MIT Licensed
