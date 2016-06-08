@@ -119,10 +119,13 @@
           wakeTime: 750,
           // defines whether or not the user is prompted oh how to wake map
           sleepNote: true,
+          // allows ability to override note styling
+          sleepNoteStyle: { color: 'red' },
           // should hovering wake the map? (clicking always will)
           hoverToWake: true,
           // opacity (between 0 and 1) of inactive map
           sleepOpacity: .7
+
       }).setView([37.8, -96], 4).addLayer(L.tileLayer(osm));
 </script>
 </body>

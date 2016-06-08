@@ -12,7 +12,7 @@ It's an interaction-manager for your map:
 with user-interest it wakes the map and
 when ignored the map won't interfere.
 
-### [demo/example](https://cliffcloud.github.io/Leaflet.Sleep)
+### [demo/example](http://cliffcloud.github.io/Leaflet.Sleep)
 
 ## Use
 
