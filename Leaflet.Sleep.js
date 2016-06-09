@@ -37,6 +37,13 @@ L.Map.Sleep = L.Handler.extend({
       style.padding = '5px';
       style.border = 'solid 2px black';
       style.background = 'white';
+
+      if(this._map.options.sleepNoteStyle) {
+        var noteStyleOverrides = this._map.options.sleepNoteStyle;
+        Object.keys(noteStyleOverrides).map(function(key) {
+          style[key] = noteStyleOverrides[key];
+        });
+      }
     }
   },
 
