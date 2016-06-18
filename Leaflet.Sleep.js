@@ -22,7 +22,7 @@ L.Map.Sleep = L.Handler.extend({
 
     this._setSleepNoteStyle();
 
-    if (this._map.tap && this._map.options.sleepButtonOnTouch) {
+    if (L.Browser.touch && this._map.options.sleepButtonOnTouch) {
       var DisableMapControl = L.Control.extend({
         options: {
           position: 'topright'
@@ -87,20 +87,18 @@ L.Map.Sleep = L.Handler.extend({
 
 
   _wakeMap: function (e) {
-    var wakedByTouch = e && e.originalEvent.sourceCapabilities.firesTouchEvents;
-
     this._stopWaiting();
     this._map.scrollWheelZoom.enable();
-    if (this._map.tap) {
+    if (L.Browser.touch) {
       this._map.touchZoom.enable();
       this._map.dragging.enable();
       this._map.tap.enable();
 
-      /* If the map was waked by a touch event we will never get
+      /* If the device has only a touchscreen we will never get
        * a mouseout event, so we add an extra button to put the map
        * back to sleep manually.
        */
-      if (wakedByTouch) {
+      if (L.Browser.touch) {
         this._map.addControl(this._sleepButton);
       }
     }
@@ -113,7 +111,7 @@ L.Map.Sleep = L.Handler.extend({
     this._stopWaiting();
     this._map.scrollWheelZoom.disable();
 
-    if (this._map.tap) {
+    if (L.Browser.touch) {
       this._map.touchZoom.disable();
       this._map.dragging.disable();
       this._map.tap.disable();
