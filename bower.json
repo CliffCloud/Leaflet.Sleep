@@ -1,0 +1,22 @@
+{
+  "name": "leaflet-sleep",
+  "description": "Plugin for Leaflet for preventing unwanted scroll capturing",
+  "main": "Leaflet.Sleep.js",
+  "authors": [
+    "rocks.in.the.cloud+leafletsleep@gmail.com",
+    "Fabian Köster <mail@fabian-koester.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "leaflet",
+    "ui"
+  ],
+  "homepage": "https://github.com/CliffCloud/Leaflet.Sleep",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
