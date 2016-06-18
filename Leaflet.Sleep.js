@@ -60,6 +60,9 @@ L.Map.Sleep = L.Handler.extend({
   _wakeMap: function () {
     this._stopWaiting();
     this._map.scrollWheelZoom.enable();
+    this._map.touchZoom.enable();
+    this._map.dragging.enable();
+    this._map.tap.enable();
     L.DomUtil.setOpacity( this._map._container, 1);
     this.sleepNote.style.opacity = 0;
     this._addAwakeListeners();
@@ -68,6 +71,9 @@ L.Map.Sleep = L.Handler.extend({
   _sleepMap: function () {
     this._stopWaiting();
     this._map.scrollWheelZoom.disable();
+    this._map.touchZoom.disable();
+    this._map.dragging.disable();
+    this._map.tap.disable();
     L.DomUtil.setOpacity( this._map._container, this._map.options.sleepOpacity);
     this.sleepNote.style.opacity = .4;
     this._addSleepingListeners();
