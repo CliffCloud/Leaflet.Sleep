@@ -3,22 +3,60 @@ L.Map.mergeOptions({
   sleepTime: 750,
   wakeTime: 750,
   sleepNote: true,
+  sleepButtonOnTouch: true,
   hoverToWake: true,
-  sleepOpacity:.7
+  sleepOpacity:.7,
 });
 
 L.Map.Sleep = L.Handler.extend({
   addHooks: function () {
+    var self = this;
     this.sleepNote = L.DomUtil.create('p', 'sleep-note', this._map._container);
     this._sleepMap();
     this._enterTimeout = null;
     this._exitTimeout = null;
 
-
     var mapStyle = this._map.getContainer().style;
     mapStyle.WebkitTransition += 'opacity .5s';
     mapStyle.MozTransition += 'opacity .5s';
 
+    this._setSleepNoteStyle();
+
+    if (this._map.tap && this._map.options.sleepButtonOnTouch) {
+      var DisableMapControl = L.Control.extend({
+        options: {
+          position: 'topright'
+        },
+        onAdd: function () {
+          const container = L.DomUtil.create('p', 'sleep-button');
+          container.appendChild(document.createTextNode( 'Disable map' ));
+          L.DomEvent.addListener(container, 'click', function () {
+            self._sleepButton.removeFrom(self._map);
+            self._sleepMap();
+          });
+
+          container.style.backgroundColor = 'white';
+          container.style.padding = '5px';
+          container.style.border = '2px solid gray';
+
+          return container;
+        },
+      });
+      this._sleepButton = new DisableMapControl();
+    }
+  },
+
+  removeHooks: function () {
+    if (!this._map.scrollWheelZoom.enabled()){
+      this._map.scrollWheelZoom.enable();
+    }
+    L.DomUtil.setOpacity( this._map._container, 1);
+    L.DomUtil.setOpacity( this.sleepNote, 0);
+    this._removeSleepingListeners();
+    this._removeAwakeListeners();
+  },
+
+  _setSleepNoteStyle: function() {
     var noteString = this._map.options.wakeMessage ||
                      ('Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake');
     var style = this.sleepNote.style;
@@ -47,23 +85,24 @@ L.Map.Sleep = L.Handler.extend({
     }
   },
 
-  removeHooks: function () {
-    if (!this._map.scrollWheelZoom.enabled()){
-      this._map.scrollWheelZoom.enable();
-    }
-    L.DomUtil.setOpacity( this._map._container, 1);
-    L.DomUtil.setOpacity( this.sleepNote, 0);
-    this._removeSleepingListeners();
-    this._removeAwakeListeners();
-  },
 
-  _wakeMap: function () {
+  _wakeMap: function (e) {
+    var wakedByTouch = e && e.originalEvent.sourceCapabilities.firesTouchEvents;
+
     this._stopWaiting();
     this._map.scrollWheelZoom.enable();
     if (this._map.tap) {
       this._map.touchZoom.enable();
       this._map.dragging.enable();
       this._map.tap.enable();
+
+      /* If the map was waked by a touch event we will never get
+       * a mouseout event, so we add an extra button to put the map
+       * back to sleep manually.
+       */
+      if (wakedByTouch) {
+        this._map.addControl(this._sleepButton);
+      }
     }
     L.DomUtil.setOpacity( this._map._container, 1);
     this.sleepNote.style.opacity = 0;
