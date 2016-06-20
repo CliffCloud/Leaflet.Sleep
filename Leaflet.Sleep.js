@@ -2,8 +2,11 @@ L.Map.mergeOptions({
   sleep: true,
   sleepTime: 750,
   wakeTime: 750,
+  wakeMessageTouch: 'Touch to Wake',
   sleepNote: true,
   sleepButtonOnTouch: true,
+  sleepButtonPosition: 'topright',
+  sleepButtonText: 'Disable map',
   hoverToWake: true,
   sleepOpacity:.7,
 });
@@ -25,11 +28,11 @@ L.Map.Sleep = L.Handler.extend({
     if (L.Browser.touch && this._map.options.sleepButtonOnTouch) {
       var DisableMapControl = L.Control.extend({
         options: {
-          position: 'topright'
+          position: this._map.options.sleepButtonPosition,
         },
         onAdd: function () {
           const container = L.DomUtil.create('p', 'sleep-button');
-          container.appendChild(document.createTextNode( 'Disable map' ));
+          container.appendChild(document.createTextNode( this._map.options.sleepButtonText ));
           L.DomEvent.addListener(container, 'click', function () {
             self._sleepButton.removeFrom(self._map);
             self._sleepMap();
@@ -38,6 +41,13 @@ L.Map.Sleep = L.Handler.extend({
           container.style.backgroundColor = 'white';
           container.style.padding = '5px';
           container.style.border = '2px solid gray';
+
+          if(this._map.options.sleepButtonStyle) {
+            var buttonStyleOverrides = this._map.options.sleepButtonStyle;
+            Object.keys(buttonStyleOverrides).map(function(key) {
+              container.style[key] = buttonStyleOverrides[key];
+            });
+          }
 
           return container;
         },
@@ -57,8 +67,14 @@ L.Map.Sleep = L.Handler.extend({
   },
 
   _setSleepNoteStyle: function() {
-    var noteString = this._map.options.wakeMessage ||
-                     ('Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake');
+    var noteString;
+
+    if(L.Browser.touch) {
+      noteString = this._map.options.wakeMessageTouch;
+    } else {
+      noteString = this._map.options.wakeMessage
+        || ('Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake');
+    }
     var style = this.sleepNote.style;
     if( this._map.options.sleepNote ){
       this.sleepNote.appendChild(document.createTextNode( noteString ));

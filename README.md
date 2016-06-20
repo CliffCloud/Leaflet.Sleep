@@ -42,11 +42,23 @@ These are the new options available for `L.map` and their defaults.
         // defines whether the user is prompted on how to wake map
         sleepNote: true,
 
-        // should hovering wake the map?
+        // should hovering wake the map? (only non-touch devices)
         hoverToWake: true,
 
-        // specify a custom message to notify users how to wake
+        // specify a custom message to notify users how to wake on non-touch device
         wakeMessage: ('Click ' + (hoverToWake?' or Hover ' : '') + 'to Wake'),
+
+        // specify a custom message to notify users how to wake on touch device
+        wakeMessageTouch: 'Touch to Wake',
+
+        // whether to show an extra map control on touch devices to sleep map after waking
+        sleepButtonOnTouch: true,
+
+        // Position of sleep button (allowed values topright, topleft, bottomright or bottomleft)
+        sleepButtonPosition: 'topright',
+
+        // Label of sleep button
+        sleepButtonText: 'Disable map',
 
         // opacity (between 0 and 1) of inactive map
         sleepOpacity: .7

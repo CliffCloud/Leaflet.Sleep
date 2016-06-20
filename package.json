@@ -1,6 +1,6 @@
 {
   "name": "leaflet-sleep",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "main": "Leaflet.Sleep.js",
   "description": "Plugin for Leaflet for preventing unwanted scroll capturing",
   "scripts": {
