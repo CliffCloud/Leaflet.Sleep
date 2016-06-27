@@ -33,10 +33,15 @@ L.Map.Sleep = L.Handler.extend({
         onAdd: function () {
           const container = L.DomUtil.create('p', 'sleep-button');
           container.appendChild(document.createTextNode( this._map.options.sleepButtonText ));
-          L.DomEvent.addListener(container, 'click', function () {
+          var listener = function(e) {
             self._sleepButton.removeFrom(self._map);
             self._sleepMap();
-          });
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          };
+          L.DomEvent.addListener(container, 'click', listener);
+          L.DomEvent.addListener(container, 'touchstart', listener);
 
           container.style.backgroundColor = 'white';
           container.style.padding = '5px';
