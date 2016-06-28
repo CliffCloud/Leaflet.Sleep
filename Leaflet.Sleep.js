@@ -4,61 +4,75 @@ L.Map.mergeOptions({
   wakeTime: 750,
   wakeMessageTouch: 'Touch to Wake',
   sleepNote: true,
-  sleepButtonOnTouch: true,
-  sleepButtonPosition: 'topright',
-  sleepButtonText: 'Disable map',
   hoverToWake: true,
   sleepOpacity:.7,
+  sleepButton: null
+});
+
+L.Control.SleepMapControl = L.Control.extend({
+  initialize: function(opts){
+    L.setOptions(this,opts);
+  },
+  options: {
+    position: 'topright',
+    prompt: 'disable map',
+    styles: {
+      'backgroundColor': 'white',
+      'padding': '5px',
+      'border': '2px solid gray'
+    }
+  },
+  buildContainer: function(){
+    var self = this;
+    var container = L.DomUtil.create('p', 'sleep-button');
+    var boundEvent = this._nonBoundEvent.bind(this);
+    container.appendChild( document.createTextNode( this.options.prompt ));
+    L.DomEvent.addListener(container, 'click', boundEvent);
+    L.DomEvent.addListener(container, 'touchstart', boundEvent);
+
+    Object.keys(this.options.styles).map(function(key) {
+      container.style[key] = self.options.styles[key];
+    });
+
+    return (this._container = container);
+  },
+  onAdd: function () {
+    if (this._container) {
+        return this._container
+    } else {
+        return this.buildContainer();
+    }
+  },
+  _nonBoundEvent: function(e) {
+    L.DomEvent.stop(e);
+    if (this._map) this._map.sleep._sleepMap();
+    return false;
+  }
 });
 
 L.Map.Sleep = L.Handler.extend({
   addHooks: function () {
     var self = this;
     this.sleepNote = L.DomUtil.create('p', 'sleep-note', this._map._container);
-    this._sleepMap();
     this._enterTimeout = null;
     this._exitTimeout = null;
+    this._sleepButton = new L.Control.SleepMapControl()
 
-    var mapStyle = this._map.getContainer().style;
+    /*
+     * If the device has only a touchscreen we will never get
+     * a mouseout event, so we add an extra button to put the map
+     * back to sleep manually.
+     */
+    if (L.Browser.touch) {
+      this._map.addControl(this._sleepButton);
+    }
+
+    var mapStyle = this._map._container.style;
     mapStyle.WebkitTransition += 'opacity .5s';
     mapStyle.MozTransition += 'opacity .5s';
 
     this._setSleepNoteStyle();
-
-    if (L.Browser.touch && this._map.options.sleepButtonOnTouch) {
-      var DisableMapControl = L.Control.extend({
-        options: {
-          position: this._map.options.sleepButtonPosition,
-        },
-        onAdd: function () {
-          const container = L.DomUtil.create('p', 'sleep-button');
-          container.appendChild(document.createTextNode( this._map.options.sleepButtonText ));
-          var listener = function(e) {
-            self._sleepButton.removeFrom(self._map);
-            self._sleepMap();
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-          };
-          L.DomEvent.addListener(container, 'click', listener);
-          L.DomEvent.addListener(container, 'touchstart', listener);
-
-          container.style.backgroundColor = 'white';
-          container.style.padding = '5px';
-          container.style.border = '2px solid gray';
-
-          if(this._map.options.sleepButtonStyle) {
-            var buttonStyleOverrides = this._map.options.sleepButtonStyle;
-            Object.keys(buttonStyleOverrides).map(function(key) {
-              container.style[key] = buttonStyleOverrides[key];
-            });
-          }
-
-          return container;
-        },
-      });
-      this._sleepButton = new DisableMapControl();
-    }
+    this._sleepMap();
   },
 
   removeHooks: function () {
@@ -72,13 +86,16 @@ L.Map.Sleep = L.Handler.extend({
   },
 
   _setSleepNoteStyle: function() {
-    var noteString;
+    var noteString = '';
 
     if(L.Browser.touch) {
       noteString = this._map.options.wakeMessageTouch;
+    } else if (this._map.options.wakeMessage) {
+      noteString = this._map.options.wakeMessage;
+    } else if (this._map.options.hoverToWake) {
+      noteString = 'click or hover to wake';
     } else {
-      noteString = this._map.options.wakeMessage
-        || ('Click ' + (this._map.options.hoverToWake?'or Hover ':'') + 'to Wake');
+      noteString = 'click to wake';
     }
     var style = this.sleepNote.style;
     if( this._map.options.sleepNote ){
@@ -114,14 +131,7 @@ L.Map.Sleep = L.Handler.extend({
       this._map.touchZoom.enable();
       this._map.dragging.enable();
       this._map.tap.enable();
-
-      /* If the device has only a touchscreen we will never get
-       * a mouseout event, so we add an extra button to put the map
-       * back to sleep manually.
-       */
-      if (L.Browser.touch) {
-        this._map.addControl(this._sleepButton);
-      }
+      this._map.addControl(this._sleepButton);
     }
     L.DomUtil.setOpacity( this._map._container, 1);
     this.sleepNote.style.opacity = 0;
@@ -136,7 +146,9 @@ L.Map.Sleep = L.Handler.extend({
       this._map.touchZoom.disable();
       this._map.dragging.disable();
       this._map.tap.disable();
+      this._map.removeControl(this._sleepButton);
     }
+
     L.DomUtil.setOpacity( this._map._container, this._map.options.sleepOpacity);
     this.sleepNote.style.opacity = .4;
     this._addSleepingListeners();
