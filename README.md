@@ -1,18 +1,11 @@
 # Leaflet.Sleep
 
-When scrolling a page and your cursor crosses a leaflet map, the scroll is
-stopped and the map zooms &mdash; not friendly.
+Leaflet's stock maps are event-greedy and interfere with scrolling.
 
-`L.Sleep` removes the **dilemma** between
+You can think of `Leaflet.Sleep` as an interaction manager, to help your
+map do what you want when you want.
 
-  * disabling scrollZoom for the pages sake
-  * enabling scrollZoom for the map's sake
-
-It's an interaction-manager for your map:
-with user-interest it wakes the map and
-when ignored the map won't interfere.
-
-### [demo/example](http://cliffcloud.github.io/Leaflet.Sleep)
+### [demo](http://cliffcloud.github.io/Leaflet.Sleep)
 
 ## Use
 
@@ -42,23 +35,14 @@ These are the new options available for `L.map` and their defaults.
         // defines whether the user is prompted on how to wake map
         sleepNote: true,
 
-        // should hovering wake the map? (only non-touch devices)
+        // should hovering wake the map? (non-touch devices only)
         hoverToWake: true,
 
-        // specify a custom message to notify users how to wake on non-touch device
-        wakeMessage: ('Click ' + (hoverToWake?' or Hover ' : '') + 'to Wake'),
+        // a message to inform users about waking the map
+        wakeMessage: 'Click or Hover to Wake',
 
-        // specify a custom message to notify users how to wake on touch device
-        wakeMessageTouch: 'Touch to Wake',
-
-        // whether to show an extra map control on touch devices to sleep map after waking
-        sleepButtonOnTouch: true,
-
-        // Position of sleep button (allowed values topright, topleft, bottomright or bottomleft)
-        sleepButtonPosition: 'topright',
-
-        // Label of sleep button
-        sleepButtonText: 'Disable map',
+        // a constructor for a control button
+        sleepButton: L.Control.sleepMapControl,
 
         // opacity (between 0 and 1) of inactive map
         sleepOpacity: .7

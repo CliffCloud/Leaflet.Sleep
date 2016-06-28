@@ -1,18 +1,17 @@
-L.Map.mergeOptions({
-  sleep: true,
-  sleepTime: 750,
-  wakeTime: 750,
-  wakeMessageTouch: 'Touch to Wake',
-  sleepNote: true,
-  hoverToWake: true,
-  sleepOpacity:.7,
-  sleepButton: null
-});
+/*
+ * Leaflet.Sleep
+ */
+
+/*
+ * Default Button (touch devices only)
+ */
 
 L.Control.SleepMapControl = L.Control.extend({
+
   initialize: function(opts){
     L.setOptions(this,opts);
   },
+
   options: {
     position: 'topright',
     prompt: 'disable map',
@@ -22,6 +21,7 @@ L.Control.SleepMapControl = L.Control.extend({
       'border': '2px solid gray'
     }
   },
+
   buildContainer: function(){
     var self = this;
     var container = L.DomUtil.create('p', 'sleep-button');
@@ -36,21 +36,41 @@ L.Control.SleepMapControl = L.Control.extend({
 
     return (this._container = container);
   },
+
   onAdd: function () {
-    if (this._container) {
-        return this._container
-    } else {
-        return this.buildContainer();
-    }
+    return this._container || this.buildContainer();
   },
+
   _nonBoundEvent: function(e) {
     L.DomEvent.stop(e);
     if (this._map) this._map.sleep._sleepMap();
     return false;
   }
+
+});
+
+L.Control.sleepMapControl = function(){
+  return new L.Control.SleepMapControl();
+};
+
+
+/*
+ * The Sleep Handler
+ */
+
+L.Map.mergeOptions({
+  sleep: true,
+  sleepTime: 750,
+  wakeTime: 750,
+  wakeMessageTouch: 'Touch to Wake',
+  sleepNote: true,
+  hoverToWake: true,
+  sleepOpacity:.7,
+  sleepButton: L.Control.sleepMapControl
 });
 
 L.Map.Sleep = L.Handler.extend({
+
   addHooks: function () {
     var self = this;
     this.sleepNote = L.DomUtil.create('p', 'sleep-note', this._map._container);
@@ -65,7 +85,8 @@ L.Map.Sleep = L.Handler.extend({
      * a custom control/button can be provided by the user
      * with the map's `sleepButton` option
      */
-    this._sleepButton = this._map.options.sleepButton || new L.Control.SleepMapControl()
+    this._sleepButton = this._map.options.sleepButton();
+
     if (L.Browser.touch) {
       this._map.addControl(this._sleepButton);
     }
@@ -90,6 +111,7 @@ L.Map.Sleep = L.Handler.extend({
 
   _setSleepNoteStyle: function() {
     var noteString = '';
+    var style = this.sleepNote.style;
 
     if(L.Browser.touch) {
       noteString = this._map.options.wakeMessageTouch;
@@ -100,7 +122,7 @@ L.Map.Sleep = L.Handler.extend({
     } else {
       noteString = 'click to wake';
     }
-    var style = this.sleepNote.style;
+
     if( this._map.options.sleepNote ){
       this.sleepNote.appendChild(document.createTextNode( noteString ));
       style.pointerEvents = 'none';
@@ -125,7 +147,6 @@ L.Map.Sleep = L.Handler.extend({
       }
     }
   },
-
 
   _wakeMap: function (e) {
     this._stopWaiting();
