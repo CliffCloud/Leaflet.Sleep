@@ -56,13 +56,16 @@ L.Map.Sleep = L.Handler.extend({
     this.sleepNote = L.DomUtil.create('p', 'sleep-note', this._map._container);
     this._enterTimeout = null;
     this._exitTimeout = null;
-    this._sleepButton = new L.Control.SleepMapControl()
 
     /*
      * If the device has only a touchscreen we will never get
      * a mouseout event, so we add an extra button to put the map
      * back to sleep manually.
+     *
+     * a custom control/button can be provided by the user
+     * with the map's `sleepButton` option
      */
+    this._sleepButton = this._map.options.sleepButton || new L.Control.SleepMapControl()
     if (L.Browser.touch) {
       this._map.addControl(this._sleepButton);
     }
