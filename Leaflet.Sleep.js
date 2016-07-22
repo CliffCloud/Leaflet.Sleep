@@ -87,7 +87,7 @@ L.Map.Sleep = L.Handler.extend({
      */
     this._sleepButton = this._map.options.sleepButton();
 
-    if (L.Browser.touch) {
+    if (this._map.tap) {
       this._map.addControl(this._sleepButton);
     }
 
@@ -113,7 +113,7 @@ L.Map.Sleep = L.Handler.extend({
     var noteString = '';
     var style = this.sleepNote.style;
 
-    if(L.Browser.touch) {
+    if(this._map.tap) {
       noteString = this._map.options.wakeMessageTouch;
     } else if (this._map.options.wakeMessage) {
       noteString = this._map.options.wakeMessage;
@@ -151,7 +151,7 @@ L.Map.Sleep = L.Handler.extend({
   _wakeMap: function (e) {
     this._stopWaiting();
     this._map.scrollWheelZoom.enable();
-    if (L.Browser.touch) {
+    if (this._map.tap) {
       this._map.touchZoom.enable();
       this._map.dragging.enable();
       this._map.tap.enable();
@@ -166,7 +166,7 @@ L.Map.Sleep = L.Handler.extend({
     this._stopWaiting();
     this._map.scrollWheelZoom.disable();
 
-    if (L.Browser.touch) {
+    if (this._map.tap) {
       this._map.touchZoom.disable();
       this._map.dragging.disable();
       this._map.tap.disable();
@@ -201,7 +201,7 @@ L.Map.Sleep = L.Handler.extend({
 
   _addSleepingListeners: function(){
     this._map.once('mouseover', this._wakePending, this);
-    L.Browser.touch &&
+    this._map.tap &&
       this._map.once('click', this._wakeMap, this);
   },
 
@@ -213,7 +213,7 @@ L.Map.Sleep = L.Handler.extend({
     this._map.options.hoverToWake &&
       this._map.off('mouseover', this._wakePending, this);
     this._map.off('mousedown', this._wakeMap, this);
-    L.Browser.touch &&
+    this._map.tap &&
       this._map.off('click', this._wakeMap, this);
   },
 
