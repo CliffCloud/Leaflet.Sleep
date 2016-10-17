@@ -5,11 +5,11 @@ Leaflet's stock maps are event-greedy and interfere with scrolling.
 `Leaflet.Sleep` is an interaction manager, helping your
 map do what you want when you want.
 
-### [demo](http://cliffcloud.github.io/Leaflet.Sleep)
+### [Demo](http://cliffcloud.github.io/Leaflet.Sleep)
 
 ## Use
 
-Available on [npm](#npm), [bower](#bower), and straight from the single
+Available on [npm](#npm), [bower](#bower), and straight from the single.
 [source](https://github.com/CliffCloud/Leaflet.Sleep/blob/master/Leaflet.Sleep.js)
 file
 
@@ -38,7 +38,7 @@ These are the new options available for `L.map` and their defaults.
         // time(ms) until map wakes on mouseover
         wakeTime: 750,
 
-        // should the user receive wake instrurctions?
+        // should the user receive wake instructions?
         sleepNote: true,
 
         // should hovering wake the map? (non-touch devices only)
