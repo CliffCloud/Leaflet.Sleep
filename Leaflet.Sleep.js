@@ -103,6 +103,11 @@ L.Map.Sleep = L.Handler.extend({
     if (!this._map.scrollWheelZoom.enabled()){
       this._map.scrollWheelZoom.enable();
     }
+    if (this._map.tap && !this._map.tap.enabled()) {
+      this._map.touchZoom.enable();
+      this._map.dragging.enable();
+      this._map.tap.enable();
+    }
     L.DomUtil.setOpacity( this._map._container, 1);
     L.DomUtil.setOpacity( this.sleepNote, 0);
     this._removeSleepingListeners();
