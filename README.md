@@ -9,12 +9,12 @@ map do what you want when you want.
 
 ## Use
 
-Available on [npm](#npm), [bower](#bower), and straight from the single.
+Available on [npm](#npm), [bower](#bower), and from the single source
 [source](https://github.com/CliffCloud/Leaflet.Sleep/blob/master/Leaflet.Sleep.js)
-file
+file.
 
-`Leaflet.Sleep` is enabled by default, and can be disabled with the map's `sleep`
-option.
+`Leaflet.Sleep` is enabled on all maps by default,
+but can be disabled with each map's `sleep` option.
 
 ### npm
 
@@ -26,32 +26,34 @@ option.
 
 ## Config
 
-These are the new options available for `L.map` and their defaults.
+These are the new options available for `L.map` (and the defaults).
 
-    {
-        // false if you want an unruly map
-        sleep: true,
+```
+{
+    // false if you want an unruly map
+    sleep: true,
 
-        // time(ms) until map sleeps on mouseout
-        sleepTime: 750,
+    // time(ms) until map sleeps on mouseout
+    sleepTime: 750,
 
-        // time(ms) until map wakes on mouseover
-        wakeTime: 750,
+    // time(ms) until map wakes on mouseover
+    wakeTime: 750,
 
-        // should the user receive wake instructions?
-        sleepNote: true,
+    // should the user receive wake instructions?
+    sleepNote: true,
 
-        // should hovering wake the map? (non-touch devices only)
-        hoverToWake: true,
+    // should hovering wake the map? (non-touch devices only)
+    hoverToWake: true,
 
-        // a message to inform users about waking the map
-        wakeMessage: 'Click or Hover to Wake',
+    // a message to inform users about waking the map
+    wakeMessage: 'Click or Hover to Wake',
 
-        // a constructor for a control button
-        sleepButton: L.Control.sleepMapControl,
+    // a constructor for a control button
+    sleepButton: L.Control.sleepMapControl,
 
-        // opacity for the sleeping map
-        sleepOpacity: .7
-    }
+    // opacity for the sleeping map
+    sleepOpacity: .7
+}
+```
 
 ## MIT Licensed
