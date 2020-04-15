@@ -129,12 +129,11 @@ L.Map.Sleep = L.Handler.extend({
     }
 
     if( this._map.options.sleepNote ){
-      this.sleepNote.appendChild(document.createTextNode( noteString ));
+      this.sleepNote.innerHTML = noteString;
       style.pointerEvents = 'none';
       style.maxWidth = '150px';
       style.transitionDuration = '.2s';
       style.zIndex = 5000;
-      style.opacity = '.6';
       style.margin = 'auto';
       style.textAlign = 'center';
       style.borderRadius = '4px';
@@ -179,7 +178,7 @@ L.Map.Sleep = L.Handler.extend({
     }
 
     L.DomUtil.setOpacity( this._map._container, this._map.options.sleepOpacity);
-    this.sleepNote.style.opacity = .4;
+    this.sleepNote.style.opacity = this._map.options.sleepNoteStyle && this._map.options.sleepNoteStyle.opacity? this._map.options.sleepNoteStyle.opacity : .4;
     this._addSleepingListeners();
   },
 
