@@ -134,7 +134,6 @@ L.Map.Sleep = L.Handler.extend({
       style.maxWidth = '150px';
       style.transitionDuration = '.2s';
       style.zIndex = 5000;
-      style.opacity = '.6';
       style.margin = 'auto';
       style.textAlign = 'center';
       style.borderRadius = '4px';
@@ -178,7 +177,7 @@ L.Map.Sleep = L.Handler.extend({
     }
 
     L.DomUtil.setOpacity( this._map._container, this._map.options.sleepOpacity);
-    this.sleepNote.style.opacity = this._map.options.sleepNoteStyle.opacity;
+    this.sleepNote.style.opacity = this._map.options.sleepNoteStyle && this._map.options.sleepNoteStyle.opacity ? this._map.options.sleepNoteStyle.opacity : .6;
     this._addSleepingListeners();
   },
 
