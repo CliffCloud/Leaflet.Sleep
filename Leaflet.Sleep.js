@@ -26,7 +26,7 @@ L.Control.SleepMapControl = L.Control.extend({
     var self = this;
     var container = L.DomUtil.create('p', 'sleep-button');
     var boundEvent = this._nonBoundEvent.bind(this);
-    container.appendChild( document.createTextNode( this.options.prompt ));
+    container.innerHTML = this.options.prompt;
     L.DomEvent.addListener(container, 'click', boundEvent);
     L.DomEvent.addListener(container, 'touchstart', boundEvent);
 
