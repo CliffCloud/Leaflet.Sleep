@@ -26,7 +26,7 @@ L.Control.SleepMapControl = L.Control.extend({
     var self = this;
     var container = L.DomUtil.create('p', 'sleep-button');
     var boundEvent = this._nonBoundEvent.bind(this);
-    container.appendChild( document.createTextNode( this.options.prompt ));
+    container.innerHTML = this.options.prompt;
     L.DomEvent.addListener(container, 'click', boundEvent);
     L.DomEvent.addListener(container, 'touchstart', boundEvent);
 
@@ -129,7 +129,7 @@ L.Map.Sleep = L.Handler.extend({
     }
 
     if( this._map.options.sleepNote ){
-      this.sleepNote.appendChild(document.createTextNode( noteString ));
+      this.sleepNote.innerHTML = noteString;
       style.pointerEvents = 'none';
       style.maxWidth = '150px';
       style.transitionDuration = '.2s';
