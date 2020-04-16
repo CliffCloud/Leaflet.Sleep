@@ -134,6 +134,7 @@ L.Map.Sleep = L.Handler.extend({
       style.maxWidth = '150px';
       style.transitionDuration = '.2s';
       style.zIndex = 5000;
+      style.opacity = '.6';
       style.margin = 'auto';
       style.textAlign = 'center';
       style.borderRadius = '4px';
